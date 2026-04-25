@@ -1,0 +1,59 @@
+# Local "docker-compose up" workflow.
+# Builds images locally from source. Useful for testing the production build
+# on your laptop before pushing to GHCR.
+#
+# Usage:
+#   docker compose up --build
+#   open http://localhost:8080
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-bizadmin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-bizpass}
+      POSTGRES_DB: ${POSTGRES_DB:-bizautomate}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-bizadmin} -d ${POSTGRES_DB:-bizautomate}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    networks: [bizautomate]
+
+  server:
+    build:
+      context: ./server
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 5000
+      DATABASE_URL: "postgresql://${POSTGRES_USER:-bizadmin}:${POSTGRES_PASSWORD:-bizpass}@postgres:5432/${POSTGRES_DB:-bizautomate}?schema=public"
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-production}
+      CLIENT_URL: ${CLIENT_URL:-http://localhost:8080}
+    volumes:
+      - uploads:/app/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks: [bizautomate]
+
+  client:
+    build:
+      context: ./client
+    restart: unless-stopped
+    ports:
+      - "${HTTP_PORT:-8080}:80"
+    depends_on:
+      - server
+    networks: [bizautomate]
+
+volumes:
+  pgdata:
+  uploads:
+
+networks:
+  bizautomate:
+    driver: bridge

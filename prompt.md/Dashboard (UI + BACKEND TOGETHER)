@@ -1,0 +1,196 @@
+You are a senior full-stack SaaS engineer and UI/UX designer.
+
+Upgrade my dashboard into a premium, fully functional SaaS dashboard with real backend integration.
+
+IMPORTANT:
+
+* Do NOT break existing UI
+* Improve UI and connect it with backend APIs
+* Replace all static data with dynamic data
+
+---
+
+# 🎯 GOAL
+
+Make dashboard:
+
+* Visually premium
+* Fully dynamic
+* Real-time updating
+
+---
+
+# 🎨 UI IMPROVEMENTS
+
+## KPI CARDS
+
+Enhance existing cards:
+
+* Add:
+
+  * Trend indicator (↑ +12%, ↓ -5%)
+  * Small sparkline chart
+* Add hover animation (scale + shadow)
+* Add colored icons
+
+---
+
+## GLOBAL FILTER
+
+Add top-level filter:
+
+Dropdown:
+
+* Today
+* This Week
+* This Month
+* This Year
+
+All data should update based on selection
+
+---
+
+## ALERTS SECTION (NEW)
+
+Create alert cards above KPI:
+
+* Overdue invoices
+* Pending payments
+* Recent payments
+
+Use color coding:
+
+* Red (overdue)
+* Yellow (pending)
+* Green (success)
+
+---
+
+## CHART SECTION
+
+Upgrade revenue chart:
+
+* Use Recharts
+
+* Add:
+
+  * Gradient fill
+  * Tooltip
+  * Smooth animation
+
+* Add toggle:
+
+  * Revenue
+  * Payments
+
+---
+
+## RECENT INVOICES
+
+Enhance table:
+
+* Add columns:
+
+  * Due date
+  * Actions (View / Mark Paid)
+
+* Add status badges:
+
+  * Paid (green)
+  * Pending (orange)
+  * Overdue (red)
+
+---
+
+## QUICK ACTIONS
+
+Enhance buttons:
+
+* Add icons
+* Add hover effect
+* Add keyboard shortcuts
+
+---
+
+## ACTIVITY FEED (NEW)
+
+Create right-side panel:
+
+Show:
+
+* Invoice created
+* Payment received
+* Reminder sent
+
+---
+
+## SMART INSIGHTS (NEW)
+
+Add small card:
+
+Examples:
+
+* "Revenue increased 20% this month"
+* "Top customer: Nagarjuna S"
+
+---
+
+# ⚙️ BACKEND INTEGRATION
+
+Create APIs:
+
+GET /api/dashboard/summary
+GET /api/dashboard/revenue
+GET /api/dashboard/recent-invoices
+GET /api/dashboard/invoice-status
+GET /api/dashboard/top-customers
+
+---
+
+## DATA LOGIC
+
+* Revenue = sum(payments)
+* Pending = unpaid invoices
+* Overdue = invoices past due date
+
+---
+
+## FRONTEND
+
+* Use Axios
+* Fetch data on load
+* Update UI dynamically
+
+---
+
+## REAL-TIME UPDATE
+
+After:
+
+* Create invoice
+* Add payment
+
+→ Refresh dashboard automatically
+
+---
+
+## UX IMPROVEMENTS
+
+* Add loading skeletons
+* Add empty states
+* Add error handling
+
+---
+
+# 📦 OUTPUT
+
+* Updated React components
+* API integration
+* Backend controllers
+* Prisma queries
+
+---
+
+Start by improving KPI cards and connecting summary API.
+
+Wait for next instruction.

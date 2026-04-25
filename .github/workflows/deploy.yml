@@ -1,0 +1,145 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_OWNER: ${{ github.repository_owner }}
+
+jobs:
+  # ----------------------------------------------------------------------
+  # 1. Build + push images to GitHub Container Registry
+  # ----------------------------------------------------------------------
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image_tag: ${{ steps.meta.outputs.tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve image tag
+        id: meta
+        run: |
+          SHORT_SHA=${GITHUB_SHA::7}
+          echo "tag=${SHORT_SHA}" >> $GITHUB_OUTPUT
+          echo "Using tag: ${SHORT_SHA}"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Lowercase image owner
+        id: lc
+        run: echo "owner=$(echo '${{ env.IMAGE_OWNER }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
+
+      - name: Build & push server image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./server
+          file: ./server/Dockerfile
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ steps.lc.outputs.owner }}/bizautomate-server:latest
+            ${{ env.REGISTRY }}/${{ steps.lc.outputs.owner }}/bizautomate-server:${{ steps.meta.outputs.tag }}
+          cache-from: type=gha,scope=server
+          cache-to: type=gha,mode=max,scope=server
+
+      - name: Build & push client image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./client
+          file: ./client/Dockerfile
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ steps.lc.outputs.owner }}/bizautomate-client:latest
+            ${{ env.REGISTRY }}/${{ steps.lc.outputs.owner }}/bizautomate-client:${{ steps.meta.outputs.tag }}
+          cache-from: type=gha,scope=client
+          cache-to: type=gha,mode=max,scope=client
+
+  # ----------------------------------------------------------------------
+  # 2. Deploy: SSH to EC2, pull images, recreate containers
+  # ----------------------------------------------------------------------
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout (for compose file)
+        uses: actions/checkout@v4
+
+      - name: Copy production compose file to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: docker-compose.prod.yml
+          target: /srv/bizautomate
+          overwrite: true
+
+      - name: SSH deploy
+        uses: appleboy/ssh-action@v1.2.0
+        env:
+          IMAGE_TAG: ${{ needs.build.outputs.image_tag }}
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          envs: IMAGE_TAG
+          script: |
+            set -euo pipefail
+            cd /srv/bizautomate
+
+            # Persist the new image tag into the env file so a manual `docker compose up` reuses it.
+            if [ -f .env ]; then
+              if grep -q '^IMAGE_TAG=' .env; then
+                sed -i "s|^IMAGE_TAG=.*|IMAGE_TAG=${IMAGE_TAG}|" .env
+              else
+                echo "IMAGE_TAG=${IMAGE_TAG}" >> .env
+              fi
+            else
+              echo "[deploy] /srv/bizautomate/.env not found! Aborting."
+              exit 1
+            fi
+
+            # Login to GHCR using a deploy PAT (read:packages).
+            echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io \
+              -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
+
+            docker compose -f docker-compose.prod.yml pull
+            docker compose -f docker-compose.prod.yml up -d --remove-orphans
+
+            # Wait for /api/health to become healthy (max 60s)
+            for i in $(seq 1 30); do
+              if curl -fsS http://127.0.0.1/api/health >/dev/null 2>&1; then
+                echo "[deploy] healthy at attempt $i"
+                exit 0
+              fi
+              echo "[deploy] waiting for healthcheck... ($i/30)"
+              sleep 2
+            done
+            echo "[deploy] health check failed"
+            docker compose -f docker-compose.prod.yml logs --tail=200 server || true
+            exit 1
+
+      - name: Prune old images
+        uses: appleboy/ssh-action@v1.2.0
+        if: always()
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: docker image prune -f

@@ -1,0 +1,205 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum InvoiceStatus {
+  UNPAID
+  PAID
+}
+
+enum PaymentMethod {
+  CASH
+  UPI
+  BANK
+  CARD
+  CHEQUE
+  OTHER
+}
+
+enum WhatsAppMessageKind {
+  INVOICE
+  REMINDER
+  OTHER
+}
+
+enum WhatsAppMessageStatus {
+  QUEUED
+  SENT
+  FAILED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  customers        Customer[]
+  invoices         Invoice[]
+  payments         Payment[]
+  whatsappMessages WhatsAppMessage[]
+  businessProfile  BusinessProfile?
+  expenses         Expense[]
+
+  @@map("users")
+}
+
+model BusinessProfile {
+  id                     String   @id @default(cuid())
+  userId                 String   @unique
+  businessName           String?
+  address                String?
+  phone                  String?
+  email                  String?
+  gstNumber              String?
+  logoUrl                String?
+  currency               String   @default("INR")
+  invoicePrefix          String   @default("INV")
+  defaultTaxRate         Float    @default(0)
+  defaultDueDays         Int      @default(0)
+  invoiceFooterNote      String?
+  whatsappReminderEnabled Boolean @default(true)
+  emailNotifications     Boolean  @default(true)
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("business_profiles")
+}
+
+model Customer {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  phone     String?
+  email     String?
+  address   String?
+  gstNumber String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  invoices         Invoice[]
+  whatsappMessages WhatsAppMessage[]
+
+  @@index([userId])
+  @@index([userId, name])
+  @@map("customers")
+}
+
+model Invoice {
+  id            String        @id @default(cuid())
+  userId        String
+  customerId    String
+  invoiceNumber String
+  status        InvoiceStatus @default(UNPAID)
+  issueDate     DateTime      @default(now())
+  dueDate       DateTime?
+  notes         String?
+  subtotal      Float         @default(0)
+  taxAmount     Float         @default(0)
+  totalAmount   Float         @default(0)
+  paidAmount    Float         @default(0)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  customer         Customer          @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  items            InvoiceItem[]
+  payments         Payment[]
+  whatsappMessages WhatsAppMessage[]
+
+  @@unique([userId, invoiceNumber])
+  @@index([userId])
+  @@index([userId, status])
+  @@index([userId, customerId])
+  @@map("invoices")
+}
+
+model InvoiceItem {
+  id        String   @id @default(cuid())
+  invoiceId String
+  itemName  String
+  quantity  Float
+  price     Float
+  tax       Float    @default(0)
+  amount    Float    @default(0)
+  taxValue  Float    @default(0)
+  total     Float    @default(0)
+  createdAt DateTime @default(now())
+
+  invoice Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@index([invoiceId])
+  @@map("invoice_items")
+}
+
+model Payment {
+  id          String        @id @default(cuid())
+  userId      String
+  invoiceId   String
+  amount      Float
+  paymentDate DateTime      @default(now())
+  method      PaymentMethod @default(CASH)
+  note        String?
+  createdAt   DateTime      @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  invoice Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([invoiceId])
+  @@index([userId, paymentDate])
+  @@map("payments")
+}
+
+model Expense {
+  id          String   @id @default(cuid())
+  userId      String
+  title       String
+  category    String
+  amount      Float
+  date        DateTime
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([userId, date])
+  @@index([userId, category])
+  @@map("expenses")
+}
+
+model WhatsAppMessage {
+  id                String                @id @default(cuid())
+  userId            String
+  invoiceId         String?
+  customerId        String?
+  phone             String
+  message           String
+  kind              WhatsAppMessageKind   @default(OTHER)
+  status            WhatsAppMessageStatus @default(SENT)
+  provider          String                @default("mock")
+  providerMessageId String?
+  error             String?
+  createdAt         DateTime              @default(now())
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  invoice  Invoice?  @relation(fields: [invoiceId], references: [id], onDelete: SetNull)
+  customer Customer? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([invoiceId])
+  @@index([userId, createdAt])
+  @@map("whatsapp_messages")
+}

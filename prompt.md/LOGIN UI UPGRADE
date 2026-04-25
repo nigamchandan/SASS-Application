@@ -1,0 +1,104 @@
+You are a senior frontend engineer and UI/UX designer.
+
+Upgrade my existing login page into a modern SaaS-style authentication screen.
+
+## 🎯 Goal:
+
+Make the login page look like a premium SaaS product (clean, modern, visually appealing, and user-friendly).
+
+---
+
+## 🧱 Requirements:
+
+### Layout:
+
+* Use a split screen layout:
+
+  * Left side (40%): Branding section
+  * Right side (60%): Login form
+
+---
+
+### Left Section (Branding Panel):
+
+* Add gradient background (dark blue → purple)
+
+* Add product name: "BizAutomate"
+
+* Add tagline:
+  "Simplify your business operations with smart automation"
+
+* Add 2–3 bullet points:
+
+  * Invoice & billing automation
+  * WhatsApp reminders
+  * Real-time analytics
+
+* Add subtle illustration or icon
+
+* Center content vertically
+
+---
+
+### Right Section (Login Form):
+
+* Card-style login box with shadow and rounded corners
+* Keep form clean and minimal
+
+Fields:
+
+* Email
+* Password
+
+Enhancements:
+
+* Add icons inside inputs
+* Show/hide password toggle
+* Add "Forgot password?" link
+* Improve button styling (gradient or strong primary color)
+* Add hover + loading states
+
+---
+
+### UI/UX Improvements:
+
+* Use Tailwind CSS
+* Use ShadCN components if possible
+* Add proper spacing (padding, margins)
+* Add smooth transitions
+* Use modern font (Inter)
+
+---
+
+### Extra:
+
+* Responsive design:
+
+  * On mobile → hide left panel, show only login form
+
+* Add subtle animation:
+
+  * Fade-in on load
+
+---
+
+## 🧪 Code Quality:
+
+* Clean component structure
+* Reusable components
+* No inline messy code
+
+---
+
+## 📦 Output:
+
+* Full React component code
+* Tailwind classes
+* Any required dependencies
+
+---
+
+Do NOT change backend logic.
+Focus only on UI/UX improvement.
+
+Wait for further instructions after this.

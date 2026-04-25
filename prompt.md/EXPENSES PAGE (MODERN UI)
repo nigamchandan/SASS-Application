@@ -1,0 +1,154 @@
+You are a senior frontend engineer and SaaS product designer.
+
+Upgrade the "Expenses" page into a modern SaaS-style feature preview page instead of a simple "Coming Soon".
+
+IMPORTANT:
+
+* This is NOT a fully functional module yet
+* This is a preview/teaser page to show upcoming features
+* Focus on UI/UX and engagement
+
+---
+
+## 🎯 GOAL
+
+Make the Expenses page:
+
+* Visually attractive
+* Informative
+* Engaging
+* Feel like a premium SaaS feature
+
+---
+
+## 🧱 PAGE STRUCTURE
+
+### 1. HERO SECTION
+
+* Icon (expense or money icon with gradient background)
+
+* Title:
+  "Smart Expense Management 💰"
+
+* Subtitle:
+  "Track, categorize, and optimize your business expenses to maximize profit."
+
+* Add badge:
+  "Coming Soon" (styled pill)
+
+---
+
+### 2. FEATURE PREVIEW CARDS (GRID)
+
+Create 4 cards:
+
+1. Track Expenses
+
+   * "Add and manage all your business expenses easily"
+
+2. Categories
+
+   * "Organize expenses like rent, salary, utilities"
+
+3. Profit Insights
+
+   * "Understand profit after expenses"
+
+4. Reports
+
+   * "Monthly expense trends and analytics"
+
+Each card:
+
+* Icon
+* Title
+* Short description
+* Hover animation
+
+---
+
+### 3. VISUAL SECTION
+
+* Add a mock dashboard card showing:
+
+  * Expense chart
+  * Categories breakdown
+
+(Use placeholder UI design, not real data)
+
+---
+
+### 4. CALL TO ACTION
+
+Add section:
+
+* Text:
+  "Be the first to use Expenses"
+
+* Buttons:
+
+  * "Notify Me"
+  * "Enable Early Access"
+
+Add success toast on click
+
+---
+
+### 5. ROADMAP / PROGRESS
+
+Add a progress bar:
+
+* "Feature progress: 60% complete"
+
+Or checklist:
+
+* ✔ UI Design
+* ✔ Database schema
+* ⏳ API development
+* ⏳ Final release
+
+---
+
+### 6. NAVIGATION
+
+* Keep "Back to Dashboard"
+* Or breadcrumb navigation
+
+---
+
+## 🎨 DESIGN STYLE
+
+* Tailwind CSS
+* Gradient accents (purple/blue)
+* Rounded cards (rounded-xl)
+* Soft shadows
+* Clean spacing
+
+---
+
+## ✨ MICRO INTERACTIONS
+
+* Hover effects on cards
+* Button animations
+* Smooth transitions
+
+---
+
+## 📱 RESPONSIVE
+
+* Mobile friendly
+* Stack cards vertically
+
+---
+
+## 🧪 OUTPUT
+
+* Full React component
+* Tailwind classes
+* Clean reusable components
+
+---
+
+Do NOT implement backend logic yet.
+
+Focus on making it feel like a premium upcoming feature page.

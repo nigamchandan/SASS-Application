@@ -1,0 +1,268 @@
+You are a senior full-stack SaaS architect.
+
+I am building a Local Business Automation SaaS called "BizAutomate".
+
+Your task is to implement features module-by-module based on a real SaaS product structure.
+
+IMPORTANT:
+
+* Do NOT generate everything at once
+* Implement ONE MODULE at a time
+* Wait for my confirmation before moving to next module
+
+---
+
+# 🎯 GOAL
+
+Build a production-ready SaaS with proper functionality across all tabs:
+
+* Dashboard
+* Customers
+* Invoices
+* Payments
+* WhatsApp
+* Settings
+
+Each module must be:
+
+* Fully functional
+* Clean UI (React + Tailwind)
+* Proper backend APIs (Node + Express + Prisma)
+* Production-ready code
+
+---
+
+# 🧱 TECH STACK (STRICT)
+
+Frontend:
+
+* React (Vite)
+* Tailwind CSS
+* ShadCN UI
+
+Backend:
+
+* Node.js (Express)
+* Prisma ORM
+
+Database:
+
+* PostgreSQL
+
+---
+
+# 📦 MODULE PLAN
+
+---
+
+## 🏠 MODULE 1: DASHBOARD
+
+### Backend APIs:
+
+* Get total revenue
+* Get pending payments
+* Get total customers
+* Get total invoices
+* Get monthly revenue data
+* Get recent invoices
+* Get top customers
+
+### Frontend Features:
+
+* KPI Cards:
+
+  * Revenue
+  * Pending
+  * Customers
+  * Invoices
+
+* Charts:
+
+  * Line chart (monthly revenue)
+  * Pie chart (invoice status)
+
+* Sections:
+
+  * Recent invoices table
+  * Top customers list
+
+* Quick actions:
+
+  * New Invoice
+  * Add Customer
+  * Record Payment
+
+### UX:
+
+* Show empty state if no data
+* Show loading skeletons
+
+---
+
+## 👥 MODULE 2: CUSTOMERS
+
+### Backend:
+
+* Create customer
+* Get all customers (pagination + search)
+* Update customer
+* Delete customer
+* Get customer details
+
+### Frontend:
+
+* Table view
+* Search + filter
+* Add/Edit modal
+
+### Advanced:
+
+* Customer profile page:
+
+  * Total spent
+  * Pending amount
+  * Invoice history
+  * Payment history
+
+---
+
+## 🧾 MODULE 3: INVOICES (CORE)
+
+### Backend:
+
+* Create invoice with items
+* Get all invoices (filters: paid/unpaid/overdue)
+* Get invoice details
+* Update invoice
+* Delete invoice
+
+### Logic:
+
+* Auto calculate total + GST
+* Invoice number generation
+* Due date tracking
+
+### Frontend:
+
+* Invoice form (dynamic items)
+* Invoice list
+* Status badges
+
+### Features:
+
+* Download PDF
+* Send via WhatsApp
+
+---
+
+## 💰 MODULE 4: PAYMENTS
+
+### Backend:
+
+* Record payment
+* Get payment history
+* Link payment to invoice
+
+### Features:
+
+* Mark invoice as paid
+* Partial payments support
+
+### Frontend:
+
+* Payment table
+* Filters (date, method)
+
+---
+
+## 📲 MODULE 5: WHATSAPP
+
+### Backend:
+
+* Service: sendWhatsAppMessage(phone, message)
+* API:
+
+  * Send invoice
+  * Send reminder
+
+### Frontend:
+
+* Button: "Send via WhatsApp"
+
+### Note:
+
+* Implement mock first (console log)
+* Structure for real API later
+
+---
+
+## ⚙️ MODULE 6: SETTINGS
+
+### Backend:
+
+* Update business profile
+* Update invoice settings
+
+### Frontend:
+
+* Business info:
+
+  * Name
+  * Address
+  * GST
+  * Logo upload
+
+* Invoice settings:
+
+  * Prefix
+  * Tax config
+
+---
+
+# 🎨 UI REQUIREMENTS
+
+* Modern SaaS look
+* Consistent spacing
+* Clean typography
+* Responsive design
+* Use reusable components
+
+---
+
+# ⚙️ BACKEND REQUIREMENTS
+
+* Proper folder structure:
+
+  * controllers/
+  * routes/
+  * services/
+  * middleware/
+
+* Error handling middleware
+
+* Input validation (Zod or Joi)
+
+---
+
+# 🧪 QUALITY
+
+* No dummy code
+* No incomplete logic
+* Clean and scalable
+
+---
+
+# 📦 OUTPUT FORMAT
+
+* Step-by-step implementation
+* Code + explanation
+* API endpoints
+* Setup instructions
+
+---
+
+# 🚀 EXECUTION
+
+Start with MODULE 1: DASHBOARD
+
+Do NOT proceed to next module until I say "next".

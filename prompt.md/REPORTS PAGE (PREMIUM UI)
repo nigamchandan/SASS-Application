@@ -1,0 +1,192 @@
+You are a senior frontend engineer and SaaS product designer.
+
+Upgrade the "Reports" page into a modern, premium SaaS-style analytics preview page.
+
+IMPORTANT:
+
+* This is NOT fully functional yet
+* This is a feature preview page (like a teaser)
+* Focus on UI/UX, not backend logic
+
+---
+
+## 🎯 GOAL
+
+Make the Reports page:
+
+* Look powerful and data-driven
+* Show business intelligence capabilities
+* Feel like a premium paid feature
+
+---
+
+## 🧱 PAGE STRUCTURE
+
+---
+
+### 1. HERO SECTION
+
+* Icon (analytics/chart icon with gradient background)
+
+* Title:
+  "Advanced Business Reports 📊"
+
+* Subtitle:
+  "Gain deep insights into your revenue, expenses, and business performance."
+
+* Badge:
+  "Coming Soon"
+
+---
+
+### 2. KPI PREVIEW CARDS
+
+Create 4 cards:
+
+1. Revenue
+
+   * ₹48,750
+   * +12% growth
+
+2. Expenses
+
+   * ₹18,200
+   * categorized
+
+3. Net Profit
+
+   * ₹30,550
+   * highlight in green
+
+4. GST Summary
+
+   * ₹5,400 tax
+
+Style:
+
+* Icons + colored backgrounds
+* Trend indicators
+* Gradient accents
+
+---
+
+### 3. ANALYTICS PREVIEW SECTION
+
+Create a large card:
+
+Title: "Revenue vs Expenses"
+
+* Add placeholder chart UI (line or bar)
+* Use fake/mock data for visualization
+* Add filter:
+
+  * This Month / This Year
+
+---
+
+### 4. REPORT TYPES GRID
+
+Create feature cards:
+
+1. Financial Reports
+
+   * "Track revenue, expenses, and profit"
+
+2. GST Reports
+
+   * "Generate tax summaries for compliance"
+
+3. Customer Insights
+
+   * "Identify top customers and trends"
+
+4. Export Reports
+
+   * "Download PDF/Excel reports"
+
+Each card:
+
+* Icon
+* Title
+* Short description
+* Hover effect
+
+---
+
+### 5. CALL TO ACTION
+
+Add section:
+
+Text:
+"Unlock powerful insights for your business"
+
+Buttons:
+
+* "Get Early Access"
+* "Notify Me"
+
+Show toast on click
+
+---
+
+### 6. UPGRADE CARD (VERY IMPORTANT)
+
+Add premium upsell card:
+
+Title:
+"Reports will be part of Pro Plan"
+
+Text:
+"Upgrade to unlock advanced analytics and reporting"
+
+Button:
+"Upgrade Plan"
+
+---
+
+### 7. ROADMAP / PROGRESS
+
+Add progress indicator:
+
+* UI: Done
+* Backend: In Progress
+* Release: Coming soon
+
+---
+
+## 🎨 DESIGN STYLE
+
+* Tailwind CSS
+* Gradient colors (purple, blue)
+* Rounded cards (rounded-xl)
+* Soft shadows
+* Clean layout
+
+---
+
+## ✨ MICRO INTERACTIONS
+
+* Hover animations
+* Smooth transitions
+* Card lift on hover
+
+---
+
+## 📱 RESPONSIVE
+
+* Mobile friendly
+* Stack layout
+
+---
+
+## 🧪 OUTPUT
+
+* Full React component
+* Tailwind styling
+* Clean component structure
+
+---
+
+Do NOT implement backend logic.
+
+Focus on making this page feel like a premium analytics feature.
