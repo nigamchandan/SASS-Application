@@ -1,0 +1,28 @@
+Build dashboard analytics.
+
+## Backend:
+
+* APIs for:
+
+  * Total revenue
+  * Pending payments
+  * Total customers
+  * Monthly revenue
+
+## Frontend:
+
+* KPI cards:
+
+  * Revenue
+  * Customers
+  * Pending amount
+
+* Charts:
+
+  * Monthly revenue (use chart library)
+
+* Recent invoices list
+
+UI must be modern and clean.
+
+After completion, wait for next step.

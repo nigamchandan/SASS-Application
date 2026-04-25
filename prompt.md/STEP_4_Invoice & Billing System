@@ -1,0 +1,47 @@
+Implement Invoice & Billing system.
+
+## Backend:
+
+Create models:
+Invoice:
+
+* id
+* userId
+* customerId
+* totalAmount
+* taxAmount
+* status (paid/unpaid)
+* createdAt
+
+InvoiceItem:
+
+* id
+* invoiceId
+* itemName
+* quantity
+* price
+* tax
+
+APIs:
+
+* Create invoice with multiple items
+* Get invoice list
+* Get invoice details
+
+## Features:
+
+* Auto calculate total
+* GST calculation
+
+## PDF:
+
+* Generate invoice PDF (use pdfkit)
+
+## Frontend:
+
+* Invoice creation form
+* Add multiple items dynamically
+* Invoice list page
+* Download PDF
+
+After completion, wait for next step.

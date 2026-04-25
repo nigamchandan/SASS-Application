@@ -1,0 +1,45 @@
+Now implement authentication module.
+
+## Backend:
+
+* Add PostgreSQL + Prisma ORM
+
+* Create User model:
+
+  * id
+  * name
+  * email (unique)
+  * password (hashed)
+  * createdAt
+
+* Implement:
+
+  * Register API
+  * Login API
+  * JWT token generation
+  * Password hashing (bcrypt)
+
+* Middleware:
+
+  * Protect routes using JWT
+
+## Frontend:
+
+* Create Login page
+* Create Register page
+* Store token securely
+* Redirect to dashboard after login
+
+## Requirements:
+
+* Proper validation
+* Error handling
+* Clean code
+
+Provide:
+
+* Prisma schema
+* API routes
+* Frontend pages
+
+After completion, wait for next step.

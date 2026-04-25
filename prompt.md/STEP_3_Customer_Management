@@ -1,0 +1,39 @@
+Implement Customer Management module.
+
+## Backend:
+
+Create Customer model:
+
+* id
+* userId (relation)
+* name
+* phone
+* email
+* address
+* gstNumber
+* createdAt
+
+APIs:
+
+* Add customer
+* Get all customers (with pagination)
+* Update customer
+* Delete customer
+
+## Frontend:
+
+* Customer list page (table)
+* Add/Edit form
+* Search + filter
+
+## UI:
+
+* Clean table
+* Modal form
+* Toast notifications
+
+Ensure:
+
+* Only logged-in user accesses their customers
+
+After completion, wait for next step.

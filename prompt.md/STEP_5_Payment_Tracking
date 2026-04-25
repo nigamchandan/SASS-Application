@@ -1,0 +1,25 @@
+Implement payment tracking.
+
+## Backend:
+
+Create Payment model:
+
+* id
+* invoiceId
+* amount
+* paymentDate
+* method (cash, UPI, bank)
+
+APIs:
+
+* Mark invoice as paid
+* Add payment record
+
+## Frontend:
+
+* Mark as paid button
+* Payment status badge (Paid / Pending)
+
+Update dashboard calculations accordingly.
+
+After completion, wait for next step.

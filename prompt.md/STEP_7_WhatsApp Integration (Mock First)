@@ -1,0 +1,24 @@
+Implement WhatsApp integration (mock version first).
+
+## Backend:
+
+* Create service:
+  sendWhatsAppMessage(phone, message)
+
+* Mock sending (console log for now)
+
+* API:
+
+  * Send invoice
+  * Send reminder
+
+## Frontend:
+
+* Button:
+  "Send via WhatsApp"
+
+* Show success notification
+
+Structure code so real API (Twilio/Meta) can be added later easily.
+
+After completion, wait for next step.

@@ -1,0 +1,57 @@
+You are a senior full-stack developer.
+
+Create a production-ready SaaS project structure for a Local Business Automation system.
+
+## Tech Stack:
+
+Frontend:
+
+* React (Vite)
+* Tailwind CSS
+* ShadCN UI
+
+Backend:
+
+* Node.js (Express)
+
+Database:
+
+* PostgreSQL (we will integrate later)
+
+## Requirements:
+
+1. Create folder structure:
+
+   * /client (React app)
+   * /server (Node backend)
+
+2. Backend:
+
+   * Setup Express server
+   * Add basic route (/api/health)
+   * Setup environment variables (.env)
+   * Add middleware (CORS, JSON parsing)
+
+3. Frontend:
+
+   * Setup React app with Vite
+   * Setup Tailwind CSS
+   * Create basic layout:
+
+     * Sidebar
+     * Top navbar
+     * Dashboard page
+
+4. Connect frontend to backend (API test)
+
+5. Provide:
+
+   * Full code
+   * Setup commands
+   * How to run both apps
+
+IMPORTANT:
+Do NOT add authentication or database yet.
+Only project setup.
+
+After completion, wait for next step.
